@@ -1,7 +1,12 @@
 const container = document.querySelector(".container");
-const sizeOfGrid = 100;
+const resetButton = document.querySelector("button");
 
 const gridCreate = (boxNumber) => {
+
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("wrapper");
+
+
     for (let i = 0; i < boxNumber; i++) {
         const widthAndHeight = 960 / boxNumber;
         const row = document.createElement("div");
@@ -16,13 +21,27 @@ const gridCreate = (boxNumber) => {
                 gridBox.style.backgroundColor = "black";
             })
             row.appendChild(gridBox)
-        
         }
-        container.appendChild(row);
+        wrapper.appendChild(row);
     }
+    container.appendChild(wrapper);
 
 }
 
-gridCreate(sizeOfGrid);
+resetButton.addEventListener("click", () => {
+    let userSize = Number(prompt("What dimensions do you want the grid to be?"));
 
+    while (userSize > 100) {
+        userSize = Number(prompt("Pick a number equal to or less than 100"));
+    };
+
+    const wrapper = document.querySelector('.wrapper')
+
+    if (!wrapper) {
+        gridCreate(userSize);
+    } else {
+        wrapper.remove();
+        gridCreate(userSize);
+    };
+});
 
